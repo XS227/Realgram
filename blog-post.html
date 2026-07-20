@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-C6DPYN2MQZ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-C6DPYN2MQZ');
+</script>
+<meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title id="pageTitle">Blog — RealGram</title>
+<meta name="theme-color" content="#030609" />
+<link rel="icon" type="image/svg+xml" href="favicon.svg" />
+<meta property="og:type" content="article" />
+<meta property="og:site_name" content="RealGram" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="style.css" />
+<style>
+  .post-wrap { max-width:720px; }
+  .post-date { font-size:.78rem; letter-spacing:.04em; text-transform:uppercase; color:#7A9BC0; }
+  .post-cover { width:100%; border-radius:14px; margin:20px 0; display:block; }
+  .post-body { font-size:1rem; line-height:1.75; color:#DDE6F0; }
+  .post-body h2 { margin-top:2em; }
+  .post-body a { color:#C77DFF; }
+  .post-body p { margin:1em 0; }
+  .post-back { display:inline-block; margin-bottom:20px; color:#7A9BC0; text-decoration:none; font-size:.85rem; }
+  .post-back:hover { color:#C77DFF; }
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main-content">Skip to main content</a>
+<div class="bg-field" aria-hidden="true"></div>
+<canvas id="cinematicDust" class="cinematic-dust" aria-hidden="true"></canvas>
+
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="brand" href="/" aria-label="RealGram home">
+      <svg class="brand-mark" viewBox="0 0 24 24" aria-hidden="true"><path d="M7.9 20A9 9 0 1 0 4 16.1L2.5 21.5z"/><path d="M12 8.5v6"/><path d="M9 11.5h6"/></svg>
+      <span class="brand-word">Real<b>Gram</b></span>
+    </a>
+    <button class="nav-toggle" aria-expanded="false" aria-controls="site-nav">
+      <span></span><span></span><span></span>
+      <span class="sr-only">Menu</span>
+    </button>
+    <nav id="site-nav" class="site-nav" aria-label="Main">
+      <a href="/#journey">How it works</a>
+      <a href="/#ecosystem">Ecosystem</a>
+      <a href="/#platforms">Where to play</a>
+      <a href="/faq.html">FAQ</a>
+      <a href="/blog.html">Blog</a>
+      <a href="/#get" class="btn btn-small">Get RealGram</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main-content">
+  <section class="wrap post-wrap" style="padding-top:48px">
+    <a class="post-back" href="/blog.html">← Back to Blog</a>
+    <div id="post-loading" style="color:#7A9BC0">Loading…</div>
+    <div id="post-content" style="display:none">
+      <span class="post-date" id="post-date"></span>
+      <h1 id="post-title" style="margin:.4em 0 0"></h1>
+      <img id="post-cover" class="post-cover" style="display:none" alt="">
+      <div id="post-body" class="post-body"></div>
+    </div>
+    <div id="post-notfound" style="display:none;color:#7A9BC0;padding:40px 0">
+      Post not found. <a href="/blog.html" style="color:#C77DFF">Back to the blog</a>.
+    </div>
+  </section>
+
+  <section class="cta-band wrap">
+    <h2>Want RealGram itself?</h2>
+    <p>One app, one identity, one economy.</p>
+    <div class="hero-actions center">
+      <a href="/#get" class="btn btn-primary">Get RealGram</a>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap footer-inner">
+    <div class="footer-lockups" aria-label="RealGram">
+      <img src="brand/lockup-realgram.svg" width="110" height="22" alt="RealGram" loading="lazy" />
+    </div>
+    <p class="footer-parts">Freedom · Shahnameh · REAL Wallet · Messages · Clan · Hakim AI</p>
+    <p class="footer-fine">RealGram is an independent product and is not
+      affiliated with, endorsed by, or an official client of any messaging
+      platform it may interoperate with.</p>
+    <p class="footer-links"><a href="/faq.html">FAQ</a> · <a href="/blog.html">Blog</a></p>
+    <p class="footer-copy">© 2026 RealGram. Part of the REAL ecosystem.</p>
+  </div>
+</footer>
+
+<script src="app.js"></script>
+<script>
+(function () {
+  var esc = function (s) {
+    return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  };
+  var slug = new URLSearchParams(location.search).get('slug');
+  if (!slug) {
+    document.getElementById('post-loading').style.display = 'none';
+    document.getElementById('post-notfound').style.display = 'block';
+  } else {
+    fetch('https://shahnameh.setaei.com/api/blog/posts/' + encodeURIComponent(slug))
+      .then(function (r) { return r.json(); })
+      .then(function (d) {
+        document.getElementById('post-loading').style.display = 'none';
+        if (!d || !d.status || !d.post) {
+          document.getElementById('post-notfound').style.display = 'block';
+          return;
+        }
+        var p = d.post;
+        document.title = p.title + ' — RealGram';
+        document.getElementById('pageTitle').textContent = p.title + ' — RealGram';
+        document.getElementById('post-title').textContent = p.title;
+        document.getElementById('post-date').textContent = p.published_at
+          ? new Date(p.published_at).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
+          : '';
+        if (p.cover_image) {
+          var img = document.getElementById('post-cover');
+          img.src = p.cover_image;
+          img.alt = esc(p.title);
+          img.style.display = 'block';
+        }
+        // body_html is authored by the trusted admin editor (JWT-gated), not
+        // public user input -- rendered as-is, same trust boundary as any
+        // other admin-authored content in this ecosystem.
+        document.getElementById('post-body').innerHTML = p.body_html || '';
+        document.getElementById('post-content').style.display = 'block';
+      })
+      .catch(function () {
+        document.getElementById('post-loading').style.display = 'none';
+        document.getElementById('post-notfound').style.display = 'block';
+      });
+  }
+})();
+</script>
+</body>
+</html>

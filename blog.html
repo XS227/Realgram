@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-C6DPYN2MQZ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-C6DPYN2MQZ');
+</script>
+<meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Blog — RealGram</title>
+<meta name="description" content="News, updates, and writing from RealGram — the app connecting Freedom, Shahnameh, REAL Wallet, Messages, Clan, and Hakim AI under one REAL-ID." />
+<meta name="theme-color" content="#030609" />
+<link rel="canonical" href="https://realgram.no/blog.html" />
+<link rel="icon" type="image/svg+xml" href="favicon.svg" />
+
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Blog — RealGram" />
+<meta property="og:description" content="News, updates, and writing from RealGram." />
+<meta property="og:url" content="https://realgram.no/blog.html" />
+<meta property="og:site_name" content="RealGram" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="style.css" />
+<style>
+  .blog-grid { display:grid; gap:20px; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); margin-top:32px; }
+  .blog-card { display:flex; flex-direction:column; background:rgba(255,255,255,.03); border:1px solid rgba(255,255,255,.08); border-radius:14px; overflow:hidden; text-decoration:none; color:inherit; transition:border-color .2s, transform .2s; }
+  .blog-card:hover { border-color:rgba(199,125,255,.4); transform:translateY(-2px); }
+  .blog-card img { width:100%; aspect-ratio:16/9; object-fit:cover; background:rgba(255,255,255,.04); }
+  .blog-card-body { padding:16px 18px 20px; display:flex; flex-direction:column; gap:8px; flex:1; }
+  .blog-card-date { font-size:.72rem; letter-spacing:.04em; text-transform:uppercase; color:#7A9BC0; }
+  .blog-card h3 { margin:0; font-size:1.05rem; }
+  .blog-card p { margin:0; font-size:.88rem; color:#9FB4CC; line-height:1.5; }
+  .blog-empty { text-align:center; color:#7A9BC0; padding:60px 0; }
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main-content">Skip to main content</a>
+<div class="bg-field" aria-hidden="true"></div>
+<canvas id="cinematicDust" class="cinematic-dust" aria-hidden="true"></canvas>
+
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="brand" href="/" aria-label="RealGram home">
+      <svg class="brand-mark" viewBox="0 0 24 24" aria-hidden="true"><path d="M7.9 20A9 9 0 1 0 4 16.1L2.5 21.5z"/><path d="M12 8.5v6"/><path d="M9 11.5h6"/></svg>
+      <span class="brand-word">Real<b>Gram</b></span>
+    </a>
+    <button class="nav-toggle" aria-expanded="false" aria-controls="site-nav">
+      <span></span><span></span><span></span>
+      <span class="sr-only">Menu</span>
+    </button>
+    <nav id="site-nav" class="site-nav" aria-label="Main">
+      <a href="/#journey">How it works</a>
+      <a href="/#ecosystem">Ecosystem</a>
+      <a href="/#platforms">Where to play</a>
+      <a href="/faq.html">FAQ</a>
+      <a href="/blog.html">Blog</a>
+      <a href="/#get" class="btn btn-small">Get RealGram</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main-content">
+  <section class="faq-hero wrap">
+    <p class="eyebrow">Blog</p>
+    <h1 class="faq-h1">News from <em>RealGram.</em></h1>
+    <p class="lead">Updates, writing, and what's shipping across the RealGram ecosystem.</p>
+  </section>
+
+  <section class="wrap reveal">
+    <div id="blog-loading" style="text-align:center;color:#7A9BC0;padding:40px 0">Loading…</div>
+    <div id="blog-grid" class="blog-grid" style="display:none"></div>
+    <div id="blog-empty" class="blog-empty" style="display:none">No posts yet — check back soon.</div>
+  </section>
+
+  <section class="cta-band wrap">
+    <h2>Want RealGram itself?</h2>
+    <p>One app, one identity, one economy.</p>
+    <div class="hero-actions center">
+      <a href="/#get" class="btn btn-primary">Get RealGram</a>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap footer-inner">
+    <div class="footer-lockups" aria-label="RealGram">
+      <img src="brand/lockup-realgram.svg" width="110" height="22" alt="RealGram" loading="lazy" />
+    </div>
+    <p class="footer-parts">Freedom · Shahnameh · REAL Wallet · Messages · Clan · Hakim AI</p>
+    <p class="footer-fine">RealGram is an independent product and is not
+      affiliated with, endorsed by, or an official client of any messaging
+      platform it may interoperate with.</p>
+    <p class="footer-links"><a href="/faq.html">FAQ</a> · <a href="/blog.html">Blog</a></p>
+    <p class="footer-copy">© 2026 RealGram. Part of the REAL ecosystem.</p>
+  </div>
+</footer>
+
+<script src="app.js"></script>
+<script>
+(function () {
+  var esc = function (s) {
+    return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  };
+  fetch('https://shahnameh.setaei.com/api/blog/posts')
+    .then(function (r) { return r.json(); })
+    .then(function (d) {
+      var posts = (d && d.status && d.posts) || [];
+      document.getElementById('blog-loading').style.display = 'none';
+      if (!posts.length) {
+        document.getElementById('blog-empty').style.display = 'block';
+        return;
+      }
+      var grid = document.getElementById('blog-grid');
+      grid.innerHTML = posts.map(function (p) {
+        var date = p.published_at ? new Date(p.published_at).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' }) : '';
+        var img = p.cover_image ? '<img src="' + esc(p.cover_image) + '" alt="" loading="lazy">' : '';
+        return '<a class="blog-card" href="/blog-post.html?slug=' + encodeURIComponent(p.slug) + '">'
+          + img
+          + '<div class="blog-card-body">'
+          + '<span class="blog-card-date">' + esc(date) + '</span>'
+          + '<h3>' + esc(p.title) + '</h3>'
+          + '<p>' + esc(p.excerpt || '') + '</p>'
+          + '</div></a>';
+      }).join('');
+      grid.style.display = 'grid';
+    })
+    .catch(function () {
+      document.getElementById('blog-loading').style.display = 'none';
+      document.getElementById('blog-empty').style.display = 'block';
+    });
+})();
+</script>
+</body>
+</html>
