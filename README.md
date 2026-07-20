@@ -1,5 +1,9 @@
 # RealGram — realgram.no
 
+![status](https://img.shields.io/badge/status-live-brightgreen)
+![stack](https://img.shields.io/badge/stack-static%20HTML%2FCSS%2FJS-blue)
+![license](https://img.shields.io/badge/license-proprietary-lightgrey)
+
 The public marketing site and content layer for **RealGram**: one app connecting Freedom (VPN), Shahnameh (game), REAL Wallet, Messages, Clan, and Hakim AI under a single REAL-ID.
 
 Live at **https://realgram.no**.
@@ -17,13 +21,40 @@ soon.html        Generic "not live yet" placeholder for unfinished sections
 style.css        Shared styles for every page
 app.js           Shared behavior: nav toggle, scroll-reveal animations, cinematic dust canvas
 brand/           RealGram's own logo marks and wordmarks (SVG)
+docs/            Mirrored product/architecture reference docs — see docs/README.md
 favicon.svg
 robots.txt
 sitemap.xml
 SEO_STRATEGY.md  SEO/content strategy notes (internal)
 ```
 
+See **[docs/](docs/README.md)** for product vision, architecture, design system, and related reference material.
+
 ## Architecture — how this fits the wider RealGram ecosystem
+
+```mermaid
+flowchart LR
+    visitor((Visitor))
+
+    subgraph "5.249.255.116 — this box"
+        nginx["nginx stream{} SNI router"]
+        site["realgram.no\n(this repo, static)"]
+        admin2["shahnameh-admin\nBlog tab (JWT)"]
+        backend["shahnameh-backend\n/blog, /blog-admin"]
+        mongo[("MongoDB\nblog_posts")]
+    end
+
+    subgraph "5.249.252.221 — SetaLink box"
+        setalink["setalink.no backend\n(_setalink-admin, APK releases)"]
+    end
+
+    visitor -->|realgram.no| nginx --> site
+    visitor -->|api.realgram.no /\nadmin.realgram.no| nginx -->|transparent proxy| setalink
+    site -->|fetch published posts| backend
+    admin2 -->|author posts, JWT| backend
+    backend --> mongo
+    site -->|"Get the app" link| setalink
+```
 
 `realgram.no` is **one of three subdomains**, each routed differently by nginx's `stream{}` SNI router on this box (`/etc/nginx/sites-enabled/realgram.no`):
 
