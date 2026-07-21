@@ -88,9 +88,9 @@ works" framing, never copied.
 | 7 | 3 | REAL Economy | How the REAL Token Economy Works | PUBLISHED (long-form, FAQ+schema) |
 | 8 | 3 | RealGram | Building a Free Internet Community | PUBLISHED (long-form, FAQ+schema) |
 | 9 | 3 | RealGram | Digital Identity Without Big Tech | PUBLISHED (long-form, FAQ+schema) |
-| 10 | 4 | RealGram | The Future of RealGram | PLANNED |
-| 11 | 4 | Internet Freedom | What "Digital Rights" Actually Means | PLANNED |
-| 12 | 4 | Technology | A Plain-English Guide to WireGuard | PLANNED |
+| 10 | 4 | RealGram | The Future of RealGram | PUBLISHED (long-form, FAQ+schema) |
+| 11 | 4 | Internet Freedom | What "Digital Rights" Actually Means | PUBLISHED (long-form, FAQ+schema) |
+| 12 | 4 | Technology | A Plain-English Guide to WireGuard | PUBLISHED (long-form, FAQ+schema) |
 
 ## Weeks 5–8 — Technology + Internet Freedom depth
 
