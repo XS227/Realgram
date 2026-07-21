@@ -61,9 +61,9 @@ works" framing, never copied.
 | 1 | 1 | RealGram | Welcome to RealGram | PUBLISHED (already live, 2026-07-20) |
 | 2 | 1 | Internet Freedom | Why Internet Freedom Matters | PUBLISHED |
 | 3 | 1 | RealGram | REAL-ID Explained: One Identity, Every Part of RealGram | PUBLISHED |
-| 4 | 2 | RealGram | How RealGram Protects Your Privacy | PLANNED |
-| 5 | 2 | Technology | RealGram vs. Traditional VPN Apps | PLANNED |
-| 6 | 2 | Shahnameh | Shahnameh: Learning Persian History Through a Game | PLANNED |
+| 4 | 2 | RealGram | How RealGram Protects Your Privacy | PUBLISHED |
+| 5 | 2 | Technology | RealGram vs. Traditional VPN Apps | PUBLISHED |
+| 6 | 2 | Shahnameh | Shahnameh: Learning Through Games | PUBLISHED |
 | 7 | 3 | REAL Economy | How the REAL Token Economy Works | PLANNED |
 | 8 | 3 | RealGram | Building a Free Internet Community | PLANNED |
 | 9 | 3 | RealGram | Digital Identity Without Big Tech | PLANNED |
