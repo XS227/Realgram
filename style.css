@@ -422,23 +422,22 @@ h1 em{
 }
 
 /* ---------- RTL (Persian) ---------- */
+/* Deliberately NOT touching grid-template-columns or `order` on .hero/
+   .waypoint: CSS Grid already mirrors column tracks automatically under
+   direction:rtl (inherited from the <html dir="rtl">) while keeping each
+   track's own defined size -- adding a manual column swap ON TOP of that
+   double-flips it (e.g. the 64px node column and 1fr text column traded
+   sizes, squeezing waypoint text into 64px). Fixed 2026-07-21 after
+   Khabat reported the journey section broken. Only true physical
+   (non-logical) properties -- left/right, transform -- need overrides
+   here, since `direction` doesn't retroactively fix those. */
 [dir="rtl"]{
   font-family:'Vazirmatn', Inter, -apple-system, Helvetica, Arial, sans-serif;
 }
-[dir="rtl"] .hero{ grid-template-columns:0.95fr 1.05fr; }
-[dir="rtl"] .hero-stage{ order:2; }
-[dir="rtl"] .waypoint{ grid-template-columns:1fr 64px; }
-[dir="rtl"] .waypoint-node{ order:2; }
-[dir="rtl"] .waypoint-body{ order:1; text-align:right; }
 [dir="rtl"] .thread-rail{ left:auto; right:31px; }
 [dir="rtl"] .thread-pulse{ left:auto; right:50%; transform:translateX(50%); }
-[dir="rtl"] .lead{ margin-left:0; }
-[dir="rtl"] .trust-row{ padding-right:0; }
 [dir="rtl"] .lang-switch{ direction:ltr; }
 @media (max-width:640px){
-  [dir="rtl"] .waypoint{ grid-template-columns:48px 1fr; }
-  [dir="rtl"] .waypoint-node{ order:0; }
-  [dir="rtl"] .waypoint-body{ order:1; }
   [dir="rtl"] .thread-rail{ right:23px; }
-  [dir="rtl"] .site-nav{ left:auto; right:0; align-items:flex-end; }
+  [dir="rtl"] .site-nav{ align-items:flex-end; }
 }

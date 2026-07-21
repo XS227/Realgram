@@ -177,7 +177,7 @@ function postTemplate(p) {
     + '      affiliated with, endorsed by, or an official client of any messaging\n'
     + '      platform it may interoperate with.</p>\n'
     + '    <p class="footer-links"><a href="/faq.html">FAQ</a> · <a href="/blog.html">Blog</a></p>\n'
-    + '    <p class="footer-copy">© 2026 RealGram. Part of the REAL ecosystem.</p>\n'
+    + '    <p class="footer-copy">© 2026 SETAEI (<a href="https://www.setai.no">setai.no</a>). Part of the REAL ecosystem.</p>\n'
     + '  </div>\n'
     + '</footer>\n'
     + '\n'
@@ -204,7 +204,9 @@ function buildSitemap(posts) {
     { loc: SITE_URL + '/', changefreq: 'weekly', priority: '1.0' },
     { loc: SITE_URL + '/fa/', changefreq: 'weekly', priority: '1.0' },
     { loc: SITE_URL + '/faq.html', changefreq: 'monthly', priority: '0.6' },
+    { loc: SITE_URL + '/fa/faq.html', changefreq: 'monthly', priority: '0.6' },
     { loc: SITE_URL + '/blog.html', changefreq: 'weekly', priority: '0.7' },
+    { loc: SITE_URL + '/fa/blog.html', changefreq: 'weekly', priority: '0.7' },
   ].concat(posts.map((p) => ({
     loc: SITE_URL + '/blog/' + encodeURIComponent(p.slug) + '/',
     changefreq: 'monthly',
@@ -270,6 +272,23 @@ async function main() {
     fs.writeFileSync(blogHtmlPath, blogHtml);
   } else {
     console.error('generate-blog: BLOG_POSTS markers not found in blog.html -- grid NOT updated');
+  }
+
+  // Same cards (English titles/links -- posts aren't translated yet) into
+  // the Persian blog shell, so it doesn't go stale as new posts publish.
+  const blogHtmlFaPath = path.join(SITE_ROOT, 'fa', 'blog.html');
+  if (fs.existsSync(blogHtmlFaPath)) {
+    let blogHtmlFa = fs.readFileSync(blogHtmlFaPath, 'utf8');
+    const cardsHtmlFa = fullPosts.length
+      ? fullPosts.map(renderCard).join('\n      ')
+      : '<p style="text-align:center;color:#7A9BC0;padding:40px 0;grid-column:1/-1">به‌زودی مقاله‌ای منتشر می‌شود.</p>';
+    const markerFa = /(<!-- BLOG_POSTS_START_FA[\s\S]*?-->\s*<div class="blog-grid" id="blog-grid">)([\s\S]*?)(<\/div>\s*<!-- BLOG_POSTS_END_FA -->)/;
+    if (markerFa.test(blogHtmlFa)) {
+      blogHtmlFa = blogHtmlFa.replace(markerFa, (_m, pre, _mid, post) => pre + '\n      ' + cardsHtmlFa + '\n    ' + post);
+      fs.writeFileSync(blogHtmlFaPath, blogHtmlFa);
+    } else {
+      console.error('generate-blog: BLOG_POSTS_FA markers not found in fa/blog.html -- grid NOT updated');
+    }
   }
 
   // Regenerate sitemap.xml.
