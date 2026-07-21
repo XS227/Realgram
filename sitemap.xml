@@ -16,6 +16,24 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://realgram.no/blog/building-a-free-internet-community/</loc>
+    <lastmod>2026-07-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://realgram.no/blog/digital-identity-without-big-tech/</loc>
+    <lastmod>2026-07-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://realgram.no/blog/how-the-real-token-economy-works/</loc>
+    <lastmod>2026-07-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://realgram.no/blog/shahnameh-learning-through-games/</loc>
     <lastmod>2026-07-21</lastmod>
     <changefreq>monthly</changefreq>

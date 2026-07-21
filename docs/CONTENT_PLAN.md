@@ -35,6 +35,27 @@ works" framing, never copied.
   exists
 - One clear CTA to install RealGram (`/#get`)
 
+## Editorial standard, raised 2026-07-21
+
+- **1,500–2,500+ words where the topic genuinely supports it** — not
+  padding, real depth (mechanisms, tradeoffs, honest limitations).
+  Articles 7–9 (REAL economy, community, digital identity) landed at
+  ~1,200–1,600 words each; that's the realistic range for topics this
+  specific without inflating with filler.
+- **FAQ section + `FAQPage` JSON-LD where relevant** — written directly
+  into `body_html` as a `<div class="faq-block">` + an inline
+  `<script type="application/ld+json">` block, not a schema/pipeline
+  change. Keeps `generate-blog.js` untouched; treated as authored
+  content like the rest of the post.
+- **Reference trustworthy concepts/sources by name where it adds
+  credibility** (e.g. "digital rights researchers have documented...")
+  without fabricating specific URLs, statistics, or citations that
+  haven't been verified.
+- **Never overclaim unverified product specifics** — e.g. don't invent
+  account-recovery flows, cryptographic claims, or feature details not
+  actually confirmed in the codebase or FAQ. Precision over
+  reassurance.
+
 ## Pillars
 
 1. **Internet Freedom** — why unrestricted internet matters, censorship-
@@ -64,9 +85,9 @@ works" framing, never copied.
 | 4 | 2 | RealGram | How RealGram Protects Your Privacy | PUBLISHED |
 | 5 | 2 | Technology | RealGram vs. Traditional VPN Apps | PUBLISHED |
 | 6 | 2 | Shahnameh | Shahnameh: Learning Through Games | PUBLISHED |
-| 7 | 3 | REAL Economy | How the REAL Token Economy Works | PLANNED |
-| 8 | 3 | RealGram | Building a Free Internet Community | PLANNED |
-| 9 | 3 | RealGram | Digital Identity Without Big Tech | PLANNED |
+| 7 | 3 | REAL Economy | How the REAL Token Economy Works | PUBLISHED (long-form, FAQ+schema) |
+| 8 | 3 | RealGram | Building a Free Internet Community | PUBLISHED (long-form, FAQ+schema) |
+| 9 | 3 | RealGram | Digital Identity Without Big Tech | PUBLISHED (long-form, FAQ+schema) |
 | 10 | 4 | RealGram | The Future of RealGram | PLANNED |
 | 11 | 4 | Internet Freedom | What "Digital Rights" Actually Means | PLANNED |
 | 12 | 4 | Technology | A Plain-English Guide to WireGuard | PLANNED |
@@ -177,3 +198,19 @@ these four `filtershekan-*` posts are the entire former blog. None of
 them get a direct copy-paste migration; all four's reusable substance is
 already folded into the Technology/Internet Freedom slots in weeks 5–8
 above, written fresh for RealGram's own framing.
+
+### Preserving SEO value from the old URLs — recommendation, not yet done
+
+If any of the four `setalink.no/blog/filtershekan-*` pages have real
+accumulated backlinks or rankings (not checked — would need actual
+Search Console data on `setalink.no`, which nobody has confirmed access
+to in this file), the standard way to carry that equity forward once
+the rewritten RealGram equivalents are live is a 301 redirect from each
+old URL to its new counterpart, not a takedown or a silent duplicate.
+That's a change to a **live production domain** (`setalink.no`,
+5.249.252.221) this session doesn't have access to and isn't making
+unilaterally — flagging as a recommendation for whoever has access,
+once the rewritten Technology/Internet Freedom articles (weeks 5–8)
+actually exist to redirect to. Doing the redirect before the
+replacement content exists would just be a broken link with extra
+steps.
