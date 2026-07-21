@@ -18,6 +18,7 @@ const path = require('path');
 const SITE_ROOT = '/var/www/realgram';
 const SITE_URL = 'https://realgram.no';
 const API_BASE = 'https://shahnameh.setaei.com/api/blog';
+const STATS_API = 'https://shahnameh.setaei.com/api/public/stats';
 
 function get(url) {
   return new Promise((resolve, reject) => {
@@ -526,7 +527,58 @@ async function main() {
   // Regenerate sitemap.xml.
   fs.writeFileSync(path.join(SITE_ROOT, 'sitemap.xml'), buildSitemap(fullPosts, fullPostsFa));
 
-  console.log('generate-blog: ' + fullPosts.length + ' en post(s), ' + fullPostsFa.length + ' fa post(s) -> blog/<slug>/, fa/blog/<slug>/, blog.html, fa/blog.html, sitemap.xml updated');
+  await updateStats();
+
+  console.log('generate-blog: ' + fullPosts.length + ' en post(s), ' + fullPostsFa.length + ' fa post(s) -> blog/<slug>/, fa/blog/<slug>/, blog.html, fa/blog.html, sitemap.xml, homepage stats updated');
+}
+
+const FA_DIGITS = ['۰','۱','۲','۳','۴','۵','۶','۷','۸','۹'];
+function toFaDigits(n) {
+  return String(n).replace(/[0-9]/g, (d) => FA_DIGITS[+d]);
+}
+
+/* Real, live numbers only on the homepage stat strip -- no fabricated
+   social proof (standing rule, SEO_STRATEGY.md). Pulls from the public
+   stats API and substitutes the two <span class="stat-num"> values
+   between the STATS markers in each homepage, leaving everything else
+   (labels, markup) untouched. */
+async function updateStats() {
+  let stats;
+  try {
+    const resp = await get(STATS_API);
+    if (!resp || resp.status !== 1 || !resp.stats) throw new Error('bad response shape');
+    stats = resp.stats;
+  } catch (e) {
+    console.error('generate-blog: failed to fetch stats, leaving homepage numbers as last-generated:', e.message);
+    return;
+  }
+
+  const patchNums = (html, markerStart, markerEnd, values) => {
+    const re = new RegExp('(<!-- ' + markerStart + '[\\s\\S]*?-->)([\\s\\S]*?)(<!-- ' + markerEnd + ' -->)');
+    const m = html.match(re);
+    if (!m) {
+      console.error('generate-blog: ' + markerStart + '/' + markerEnd + ' markers not found -- stats NOT updated');
+      return html;
+    }
+    let section = m[2];
+    let i = 0;
+    section = section.replace(/(<span class="stat-num">)([^<]*)(<\/span>)/g, (_full, a, _old, c) => a + values[i++] + c);
+    return html.slice(0, m.index) + m[1] + section + m[3] + html.slice(m.index + m[0].length);
+  };
+
+  const enPath = path.join(SITE_ROOT, 'index.html');
+  fs.writeFileSync(enPath, patchNums(
+    fs.readFileSync(enPath, 'utf8'), 'STATS_START', 'STATS_END',
+    [String(stats.total_users), String(stats.players_with_progress)]
+  ));
+
+  const faPath = path.join(SITE_ROOT, 'fa', 'index.html');
+  if (fs.existsSync(faPath)) {
+    fs.writeFileSync(faPath, patchNums(
+      fs.readFileSync(faPath, 'utf8'), 'STATS_START_FA', 'STATS_END_FA',
+      [toFaDigits(stats.total_users), toFaDigits(stats.players_with_progress)]
+    ));
+  }
 }
 
 main().catch((err) => {

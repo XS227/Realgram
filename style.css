@@ -259,6 +259,16 @@ h1 em{
 .blend-card p:last-child{font-size:13.5px;color:var(--text-secondary);}
 .blend-card.is-you{border-color:color-mix(in srgb, var(--accent) 45%, var(--glass-border));}
 
+/* ---------- stats strip (real numbers only) ---------- */
+.stats-strip{
+  display:flex;justify-content:center;gap:56px;flex-wrap:wrap;
+  padding:8px 24px 32px;
+}
+.stat-item{display:flex;flex-direction:column;align-items:center;gap:4px;}
+.stat-num{font-family:var(--font-mono);font-size:clamp(26px,3.2vw,36px);font-weight:700;color:var(--purple);}
+.stat-label{font-size:12.5px;color:var(--text-secondary);}
+[dir="rtl"] .stat-num{ font-family:'Vazirmatn', Inter, sans-serif; }
+
 /* ---------- journey (the connecting-thread signature) ---------- */
 .journey{padding:40px 24px 100px;position:relative;}
 .journey h2{font-size:clamp(26px,3.4vw,36px);font-weight:700;margin:8px 0 14px;letter-spacing:-0.01em;}
@@ -372,6 +382,24 @@ h1 em{
 }
 .cta-band h2{font-size:clamp(28px,3.6vw,40px);font-weight:700;margin-bottom:14px;letter-spacing:-0.01em;}
 .cta-band p{color:var(--text-secondary);max-width:52ch;margin:0 auto;}
+
+.platform-downloads{
+  display:flex;justify-content:center;gap:16px;flex-wrap:wrap;margin-top:34px;
+}
+.platform-dl-btn{
+  display:flex;align-items:center;gap:12px;padding:14px 22px;
+  background:var(--surface);border:1.5px solid var(--glass-border);border-radius:var(--radius-lg);
+  color:var(--text-primary);min-width:190px;text-align:start;
+  transition:border-color 160ms ease, transform 160ms ease;
+}
+a.platform-dl-btn:hover{border-color:rgba(199,125,255,0.5);transform:translateY(-2px);}
+.platform-dl-btn svg{width:26px;height:26px;flex:none;stroke:var(--purple);fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;}
+.platform-dl-text{display:flex;flex-direction:column;gap:2px;}
+.platform-dl-name{font-weight:600;font-size:14.5px;}
+.platform-dl-version{font-family:var(--font-mono);font-size:11.5px;color:var(--text-muted);}
+.platform-dl-btn.is-disabled{opacity:0.45;cursor:not-allowed;}
+.platform-dl-btn.is-disabled svg{stroke:var(--text-muted);}
+[dir="rtl"] .platform-dl-version{ font-family:'Vazirmatn', Inter, sans-serif; }
 
 /* ---------- footer ---------- */
 .site-footer{border-top:1px solid var(--glass-border);background:rgba(255,255,255,0.012);}
