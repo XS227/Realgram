@@ -16,6 +16,18 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://realgram.no/blog/real-id-explained/</loc>
+    <lastmod>2026-07-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://realgram.no/blog/why-internet-freedom-matters/</loc>
+    <lastmod>2026-07-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://realgram.no/blog/welcome-to-realgram/</loc>
     <lastmod>2026-07-20</lastmod>
     <changefreq>monthly</changefreq>
