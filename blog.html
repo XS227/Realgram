@@ -25,6 +25,10 @@
 <meta property="og:url" content="https://realgram.no/blog.html" />
 <meta property="og:site_name" content="RealGram" />
 
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="Blog — RealGram" />
+<meta name="twitter:description" content="News, updates, and writing from RealGram." />
+
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
@@ -75,9 +79,14 @@
   </section>
 
   <section class="wrap reveal">
-    <div id="blog-loading" style="text-align:center;color:#7A9BC0;padding:40px 0">Loading…</div>
-    <div id="blog-grid" class="blog-grid" style="display:none"></div>
-    <div id="blog-empty" class="blog-empty" style="display:none">No posts yet — check back soon.</div>
+    <!-- BLOG_POSTS_START — server-rendered by scripts/generate-blog.js, do not
+         hand-edit between these markers; re-run the script instead. Content
+         lives directly in this HTML (not fetched by client JS) so Google can
+         index it without executing anything. -->
+    <div class="blog-grid" id="blog-grid">
+      <a class="blog-card" href="/blog/welcome-to-realgram/"><div class="blog-card-body"><span class="blog-card-date">Jul 20, 2026</span><h3>Welcome to RealGram</h3><p>One app, one identity, one economy — Freedom, Shahnameh, REAL Wallet, Messages, Clan, and Hakim AI, all under one REAL-ID.</p></div></a>
+    </div>
+    <!-- BLOG_POSTS_END -->
   </section>
 
   <section class="cta-band wrap">
@@ -104,41 +113,5 @@
 </footer>
 
 <script src="app.js"></script>
-<script>
-(function () {
-  var esc = function (s) {
-    return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
-      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
-    });
-  };
-  fetch('https://shahnameh.setaei.com/api/blog/posts')
-    .then(function (r) { return r.json(); })
-    .then(function (d) {
-      var posts = (d && d.status && d.posts) || [];
-      document.getElementById('blog-loading').style.display = 'none';
-      if (!posts.length) {
-        document.getElementById('blog-empty').style.display = 'block';
-        return;
-      }
-      var grid = document.getElementById('blog-grid');
-      grid.innerHTML = posts.map(function (p) {
-        var date = p.published_at ? new Date(p.published_at).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' }) : '';
-        var img = p.cover_image ? '<img src="' + esc(p.cover_image) + '" alt="" loading="lazy">' : '';
-        return '<a class="blog-card" href="/blog-post.html?slug=' + encodeURIComponent(p.slug) + '">'
-          + img
-          + '<div class="blog-card-body">'
-          + '<span class="blog-card-date">' + esc(date) + '</span>'
-          + '<h3>' + esc(p.title) + '</h3>'
-          + '<p>' + esc(p.excerpt || '') + '</p>'
-          + '</div></a>';
-      }).join('');
-      grid.style.display = 'grid';
-    })
-    .catch(function () {
-      document.getElementById('blog-loading').style.display = 'none';
-      document.getElementById('blog-empty').style.display = 'block';
-    });
-})();
-</script>
 </body>
 </html>
