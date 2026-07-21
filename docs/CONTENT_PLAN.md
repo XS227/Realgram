@@ -214,3 +214,24 @@ once the rewritten Technology/Internet Freedom articles (weeks 5–8)
 actually exist to redirect to. Doing the redirect before the
 replacement content exists would just be a broken link with extra
 steps.
+
+## Persian (fa) translation status — all 12 weeks 1–4 articles, 2026-07-22
+
+Full parity reached: all 12 articles published so far have a Persian
+translation (`<slug>-fa`, `locale: "fa"`, `translation_of: "<slug>"`),
+served at `/fa/blog/<slug>-fa/` with their own `BlogPosting`/`FAQPage`
+JSON-LD, reciprocal hreflang against the English original, and RTL
+typography (see `style.css`'s `[dir="rtl"]` block for the Arabic-script
+fixes this required — letter-spacing and `font-family:var(--font-mono)`
+both actively break Perso-Arabic letter-joining, not just look
+suboptimal on it). `fa/blog.html`'s grid shows the real Persian card for
+every post now — the English-title fallback (for posts not yet
+translated) is still in the generator for when new English-only posts
+get ahead of their translation again.
+
+**Not yet translated:** `fa/faq.html` was translated separately and
+already existed before this batch. Individual article translation is
+now current through post #12; future English articles (week 5 onward)
+will need their own `-fa` companion post published the same way,
+following `scripts/create_blog_post.js`'s `locale`/`translation_of`
+fields — not automatic, a real per-article translation task each time.
