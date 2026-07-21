@@ -457,6 +457,40 @@ h1 em{
 [dir="rtl"] .thread-rail{ left:auto; right:31px; }
 [dir="rtl"] .thread-pulse{ left:auto; right:50%; transform:translateX(50%); }
 [dir="rtl"] .lang-switch{ direction:ltr; }
+
+/* Typography fixes, 2026-07-22 (Khabat: "header og titels ser rotete
+   ut"). Root cause: several rules below apply Latin-typography habits
+   that actively break Perso-Arabic script instead of just looking
+   suboptimal on it --
+     - letter-spacing (positive OR negative) forces gaps between letters
+       that need to touch to render their correct joined glyph form;
+       wide tracking on .eyebrow was rendering Persian words as strings
+       of isolated-form letters instead of connected script.
+     - font-weight:100 at h1's large display size reads as broken/
+       disconnected in Arabic-script fonts, which lean on stroke weight
+       for legibility far more than Latin does.
+     - font-family:var(--font-mono) (JetBrains Mono, Latin-only) on
+       .trust-row/.footer-parts silently falls back to a *different*,
+       unstyled system font for every Persian character in that text
+       while Latin words stay in the mono font -- two mismatched
+       typefaces stitched into one line. */
+[dir="rtl"] .eyebrow,
+[dir="rtl"] .platform-tag,
+[dir="rtl"] .footer-col-title{ letter-spacing:normal; text-transform:none; }
+[dir="rtl"] h1,
+[dir="rtl"] .faq-h1{ letter-spacing:normal; font-weight:500; }
+[dir="rtl"] .blend h2,
+[dir="rtl"] .journey h2,
+[dir="rtl"] .platforms h2,
+[dir="rtl"] .locale h2,
+[dir="rtl"] .cta-band h2{ letter-spacing:normal; }
+[dir="rtl"] .brand-word{ letter-spacing:normal; }
+[dir="rtl"] .trust-row,
+[dir="rtl"] .footer-parts,
+[dir="rtl"] .blend-card .role,
+[dir="rtl"] .platform-tag,
+[dir="rtl"] .tap-label{ font-family:'Vazirmatn', Inter, sans-serif; letter-spacing:normal; }
+
 @media (max-width:640px){
   [dir="rtl"] .thread-rail{ right:23px; }
   [dir="rtl"] .site-nav{ align-items:flex-end; }

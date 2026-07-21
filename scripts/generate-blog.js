@@ -325,7 +325,7 @@ function postTemplateFa(p) {
     + '  <div class="wrap header-inner">\n'
     + '    <a class="brand" href="/fa/" aria-label="خانه رئال‌گرام">\n'
     + '      <img class="brand-mark" src="/brand/realtoken.png" width="44" height="44" alt="" aria-hidden="true">\n'
-    + '      <span class="brand-word">رئال<b>گرام</b></span>\n'
+    + '      <span class="brand-word"><b>رئال‌گرام</b></span>\n'
     + '    </a>\n'
     + '    <button class="nav-toggle" aria-expanded="false" aria-controls="site-nav">\n'
     + '      <span></span><span></span><span></span>\n'
