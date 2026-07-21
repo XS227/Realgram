@@ -7,4 +7,5 @@
 # BLOG_POSTS region are also cron-managed but stay tracked since they're
 # pre-existing files with only a portion regenerated.
 /blog/
+/fa/blog/*/
 tmp-test-builds/
