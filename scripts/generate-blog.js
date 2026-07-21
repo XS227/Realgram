@@ -202,6 +202,7 @@ function renderCard(p) {
 function buildSitemap(posts) {
   const urls = [
     { loc: SITE_URL + '/', changefreq: 'weekly', priority: '1.0' },
+    { loc: SITE_URL + '/fa/', changefreq: 'weekly', priority: '1.0' },
     { loc: SITE_URL + '/faq.html', changefreq: 'monthly', priority: '0.6' },
     { loc: SITE_URL + '/blog.html', changefreq: 'weekly', priority: '0.7' },
   ].concat(posts.map((p) => ({

@@ -420,3 +420,25 @@ h1 em{
   .waypoint-node{width:48px;height:48px;}
   .thread-rail{left:23px;}
 }
+
+/* ---------- RTL (Persian) ---------- */
+[dir="rtl"]{
+  font-family:'Vazirmatn', Inter, -apple-system, Helvetica, Arial, sans-serif;
+}
+[dir="rtl"] .hero{ grid-template-columns:0.95fr 1.05fr; }
+[dir="rtl"] .hero-stage{ order:2; }
+[dir="rtl"] .waypoint{ grid-template-columns:1fr 64px; }
+[dir="rtl"] .waypoint-node{ order:2; }
+[dir="rtl"] .waypoint-body{ order:1; text-align:right; }
+[dir="rtl"] .thread-rail{ left:auto; right:31px; }
+[dir="rtl"] .thread-pulse{ left:auto; right:50%; transform:translateX(50%); }
+[dir="rtl"] .lead{ margin-left:0; }
+[dir="rtl"] .trust-row{ padding-right:0; }
+[dir="rtl"] .lang-switch{ direction:ltr; }
+@media (max-width:640px){
+  [dir="rtl"] .waypoint{ grid-template-columns:48px 1fr; }
+  [dir="rtl"] .waypoint-node{ order:0; }
+  [dir="rtl"] .waypoint-body{ order:1; }
+  [dir="rtl"] .thread-rail{ right:23px; }
+  [dir="rtl"] .site-nav{ left:auto; right:0; align-items:flex-end; }
+}
