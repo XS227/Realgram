@@ -131,7 +131,7 @@ function postTemplate(p) {
     + '<header class="site-header">\n'
     + '  <div class="wrap header-inner">\n'
     + '    <a class="brand" href="/" aria-label="RealGram home">\n'
-    + '      <img class="brand-mark" src="/brand/realtoken.png" width="22" height="22" alt="" aria-hidden="true">\n'
+    + '      <img class="brand-mark" src="/brand/realtoken.png" width="44" height="44" alt="" aria-hidden="true">\n'
     + '      <span class="brand-word">Real<b>Gram</b></span>\n'
     + '    </a>\n'
     + '    <button class="nav-toggle" aria-expanded="false" aria-controls="site-nav">\n'
