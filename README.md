@@ -4,79 +4,85 @@
 ![stack](https://img.shields.io/badge/stack-static%20HTML%2FCSS%2FJS-blue)
 ![license](https://img.shields.io/badge/license-proprietary-lightgrey)
 
-The public marketing site and content layer for **RealGram**: one app connecting Freedom (VPN), Shahnameh (game), REAL Wallet, Messages, Clan, and Hakim AI under a single REAL-ID.
+**RealGram unifies four things under one identity (REAL-ID):** Shahnameh
+(a Telegram-native game rooted in Persian epic storytelling), REAL (the
+token and reward economy), Realink/Freedom (resilient connectivity for
+users under network filtering), and TrustAI (verified referral
+infrastructure). One login, one profile, one balance — instead of four
+accounts to juggle.
 
-Live at **https://realgram.no**.
+This repo is the public site and content layer, live at **https://realgram.no**.
+
+Built by **[Khabat Setaei](https://www.setai.no)** and
+**[Dr. Nasrin Dadashi](https://www.dadashi.no)** — see **[PEOPLE.md](PEOPLE.md)**
+for who does what. RealGram is the product of almost three years of work
+across Shahnameh Season 1, the REAL token/blockchain layer, and the Realink
+VPN app, now brought together as one platform.
 
 ## What lives here
 
-This repo is the static site served directly from `/var/www/realgram` on the `realgram.no` / `www.realgram.no` vhost — plain HTML/CSS/JS, no build step, no framework. Editing a file here and it's live on the next request.
+Plain HTML/CSS/JS, no build step, no framework. Served directly from this
+directory on the `realgram.no` / `www.realgram.no` vhost — editing a file
+here puts it live on the next request.
 
 ```
 index.html       Landing page
 faq.html         FAQ (also carries FAQPage JSON-LD structured data)
-blog.html        Blog listing — fetches published posts from the shahnameh-backend API
+blog.html        Blog listing — fetches published posts from the backend API
 blog-post.html   Single blog post view
 soon.html        Generic "not live yet" placeholder for unfinished sections
 style.css        Shared styles for every page
 app.js           Shared behavior: nav toggle, scroll-reveal animations, cinematic dust canvas
-brand/           RealGram's own logo marks and wordmarks (SVG)
-docs/            Mirrored product/architecture reference docs — see docs/README.md
+brand/           Logo marks, wordmarks, and token art (SVG/PNG) — see design/assets.md
+design/          Visual identity system: tokens, brand brief, asset inventory
+docs/            Public product reference — see docs/README.md
+PEOPLE.md        Who built this and what each person owns
 favicon.svg
 robots.txt
 sitemap.xml
-SEO_STRATEGY.md  SEO/content strategy notes (internal)
 ```
 
-See **[docs/](docs/README.md)** for product vision, architecture, design system, and related reference material.
+Implementation-level engineering docs (API contracts, integration map,
+monetization/anti-abuse rules, compliance reasoning) live in a private
+companion repo, not here — see [docs/README.md](docs/README.md) for why.
 
-## Architecture — how this fits the wider RealGram ecosystem
+## Architecture, at a glance
 
-```mermaid
-flowchart LR
-    visitor((Visitor))
+`realgram.no` is a static site with no server-side code of its own. Three
+purposefully separate surfaces sit behind the same domain family: the
+public site (this repo), a blog whose posts are authored elsewhere and
+fetched client-side at page load, and an API/admin layer that RealGram's
+backend systems sit behind. Deep infrastructure detail (which system runs
+where, internal hostnames, box topology) lives in the private companion
+repo — this file stays accurate about what's public without doubling as an
+infrastructure map.
 
-    subgraph "5.249.255.116 — this box"
-        nginx["nginx stream{} SNI router"]
-        site["realgram.no\n(this repo, static)"]
-        admin2["shahnameh-admin\nBlog tab (JWT)"]
-        backend["shahnameh-backend\n/blog, /blog-admin"]
-        mongo[("MongoDB\nblog_posts")]
-    end
-
-    subgraph "5.249.252.221 — SetaLink box"
-        setalink["setalink.no backend\n(_setalink-admin, APK releases)"]
-    end
-
-    visitor -->|realgram.no| nginx --> site
-    visitor -->|api.realgram.no /\nadmin.realgram.no| nginx -->|transparent proxy| setalink
-    site -->|fetch published posts| backend
-    admin2 -->|author posts, JWT| backend
-    backend --> mongo
-    site -->|"Get the app" link| setalink
-```
-
-`realgram.no` is **one of three subdomains**, each routed differently by nginx's `stream{}` SNI router on this box (`/etc/nginx/sites-enabled/realgram.no`):
-
-| Host | Serves | Backend |
-|---|---|---|
-| `realgram.no` / `www.realgram.no` | **This repo** — static files | Local disk, this box |
-| `api.realgram.no` | Transparent reverse proxy, unmodified path+query | `setalink.no` (SetaLink VPN backend, separate box/repo) |
-| `admin.realgram.no` | Transparent reverse proxy → `/_setalink-admin/` | `setalink.no` (same backend) |
-
-**The blog is a separate case**: authoring happens in `shahnameh-admin`'s "Blog" tab (JWT-protected, a different admin panel from `_setalink-admin`), and `blog.html`/`blog-post.html` on this site fetch published posts client-side from `shahnameh-backend`'s public API at `https://shahnameh.setaei.com/api/blog/posts`. This keeps the blog fully within infrastructure this repo's maintainers control end-to-end, rather than depending on the separate SetaLink deployment.
-
-Nothing on `realgram.no` itself depends on a build step or a deploy pipeline — a saved file is live immediately. The one exception is the blog *data*, which lives in MongoDB on the `shahnameh-backend` box and is fetched at page-load time, not baked into these HTML files.
+Nothing here depends on a build step or a deploy pipeline — a saved file is
+live immediately. The one exception is blog *data*, fetched at page-load
+time rather than baked into these HTML files.
 
 ## Branding
 
-RealGram is the only brand represented in this repo. `Shahnameh` assets are kept in `brand/` because Shahnameh is one of RealGram's own six parts, not a separate product. Older/retired brand names (Realink, SetaLink, TrustAI) that RealGram was consolidated from are deliberately **not** referenced here — see `SEO_STRATEGY.md` if you need that history, it isn't repeated in any public-facing page.
+See **[design/](design/README.md)** for the visual identity system —
+today's palette and type as captured tokens, the brand brief, and an honest
+inventory of what exists vs. what's still missing. Shahnameh and RealGram
+both have marks in `brand/` today; Realink/Freedom and TrustAI don't yet —
+tracked as an open gap in `design/assets.md`, not an oversight to paper
+over.
 
 ## Security
 
-- `nginx` denies any request for a dotfile or a `.md` file directly (`location ~ /\. { deny all; }`, `location ~ \.(md)$ { deny all; }`) — this README and `SEO_STRATEGY.md` are not publicly fetchable even though they live in the web root.
-- The blog's post body is authored exclusively through a JWT-gated admin editor (`shahnameh-backend`'s `/blog-admin/*`) — there is no public write path. `blog-post.html` renders `body_html` directly, which is safe specifically because that trust boundary holds; don't add any endpoint that lets untrusted input reach `body_html`.
-- No secrets, API keys, or credentials belong in this repo — it's a static site with no server-side code of its own. If a future change needs a secret (an analytics key, a form endpoint), keep it server-side in `shahnameh-backend`, not here.
+- `nginx` denies any request for a dotfile or a `.md` file directly
+  (`location ~ /\. { deny all; }`, `location ~ \.(md)$ { deny all; }`) —
+  this README and everything else `.md` here are not publicly fetchable
+  even though they live in the web root.
+- The blog's post body is authored exclusively through a JWT-gated admin
+  editor — there is no public write path. `blog-post.html` renders
+  `body_html` directly, which is safe specifically because that trust
+  boundary holds; don't add any endpoint that lets untrusted input reach
+  `body_html`.
+- No secrets, API keys, or credentials belong in this repo — it's a static
+  site with no server-side code of its own.
 - See `SECURITY.md` for how to report a vulnerability.
 
 ## Local development
@@ -87,8 +93,12 @@ No build step. Serve the directory with anything that speaks static files, e.g.:
 npx http-server . -p 8080
 ```
 
-Blog pages will still hit the live `https://shahnameh.setaei.com/api/blog/*` endpoints from local dev — there's no local mock.
+Blog pages will still hit the live backend API from local dev — there's no
+local mock.
 
 ## Deploying
 
-There isn't a deploy pipeline — this directory *is* the live web root. Changes are made directly on `5.249.255.116` and are live on save; `git commit`/`git push` here is for history and backup, not for triggering a deploy.
+There isn't a deploy pipeline — this directory *is* the live web root.
+Changes are made directly on the server and are live on save;
+`git commit`/`git push` here is for history and backup, not for triggering
+a deploy.
