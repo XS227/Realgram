@@ -538,7 +538,8 @@ function toFaDigits(n) {
 }
 
 /* Real, live numbers only on the homepage stat strip -- no fabricated
-   social proof (standing rule, SEO_STRATEGY.md). Pulls from the public
+   social proof (standing rule, see realgram-docs/content/SEO_STRATEGY.md).
+   Pulls from the public
    stats API and substitutes the two <span class="stat-num"> values
    between the STATS markers in each homepage, leaving everything else
    (labels, markup) untouched. */
